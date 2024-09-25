@@ -9,14 +9,20 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+ import androidx.navigation.NavHostController
+ import androidx.navigation.compose.rememberNavController
  import com.google.firebase.database.DatabaseReference
  import com.google.firebase.database.FirebaseDatabase
+ import io.marelso.shineyard.navigation.AppNavigationGraph
  import io.marelso.shineyard.ui.detail.DetailScreenHoisting
  import io.marelso.shineyard.ui.detail.DetailViewModel
  import io.marelso.shineyard.ui.theme.ShineYardTheme
  import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
+
+    private var navHostController: NavHostController? = null
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +33,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewModel = koinViewModel<DetailViewModel>()
-                    DetailScreenHoisting(viewModel)
+                    navHostController = rememberNavController()
+                    navHostController?.let {
+                        AppNavigationGraph(navHostController = it)
+                    }
                 }
             }
         }

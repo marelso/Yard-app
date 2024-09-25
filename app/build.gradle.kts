@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.io.insert.koin)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

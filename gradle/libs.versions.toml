@@ -11,6 +11,7 @@ composeBom = "2023.08.00"
 googleServices = "4.4.2"
 firebaseDatabase = "21.0.0"
 lifecycleRuntimeComposeAndroid = "2.8.6"
+navigationCompose = "2.8.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +32,7 @@ google-services = { group = "com.google.gms", name = "google-services", version.
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 io-insert-koin = { group = "io.insert-koin", name = "koin-androidx-compose", version = "3.4.3" }
 androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
