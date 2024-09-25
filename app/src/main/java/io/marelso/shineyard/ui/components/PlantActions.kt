@@ -1,6 +1,5 @@
 package io.marelso.shineyard.ui.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyItemScope
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -24,14 +25,19 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.marelso.shineyard.R
+import io.marelso.shineyard.data.PlantAction
 import io.marelso.shineyard.ui.components.text.TextLabel
 
 @Composable
-fun PlantActions(modifier: Modifier = Modifier) {
+fun PlantActions(modifier: Modifier = Modifier, actions: List<PlantAction>) {
     Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         TextLabel(text = stringResource(id = R.string.title_action))
-        Row {
-            Action(action = stringResource(id = R.string.title_action_schedule_watering))
+        LazyRow {
+            actions.forEachIndexed { index, action ->
+                item {
+                    Action(action = action)
+                }
+            }
         }
     }
 }
@@ -39,10 +45,12 @@ fun PlantActions(modifier: Modifier = Modifier) {
 @Composable
 private fun Action(
     modifier: Modifier = Modifier,
-    action: String
+    action: PlantAction
 ) {
     Column(
-        modifier = modifier.clickable { },
+        modifier = modifier.clickable {
+            action.onClick?.invoke()
+        },
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Box(
@@ -65,7 +73,7 @@ private fun Action(
         }
         TextLabel(
             modifier = modifier.width(70.dp),
-            text = action,
+            text = stringResource(id = action.title),
             textAlign = TextAlign.Center,
             maxLines = 2
         )
