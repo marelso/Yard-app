@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shine Yard</string>
+    <string name="title_water_level">Nível do reservatório de água</string>
+    <string name="title_last_watering_time">Horário da última rega</string>
+    <string name="title_soil_moisture_level">Nível de umidade do solo</string>
+    <string name="title_action">Ações</string>
+    <string name="title_action_trigger_pump">Regar</string>
+    <string name="title_action_trigger_pump_off">Parar de regar</string>
+    <string name="title_action_schedule_watering">Agendar rega</string>
+
+</resources>

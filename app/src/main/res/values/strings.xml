@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Shine Yard</string>
+    <string name="title_water_level">Reservoir water level</string>
+    <string name="title_last_watering_time">Last watering time</string>
+    <string name="title_soil_moisture_level">Soil moisture level</string>
+    <string name="title_action">Actions</string>
+    <string name="title_action_trigger_pump">Start watering</string>
+    <string name="title_action_trigger_pump_off">Stop watering</string>
+    <string name="title_action_schedule_watering">Schedule watering</string>
 </resources>
