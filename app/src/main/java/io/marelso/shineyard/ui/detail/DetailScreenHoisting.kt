@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.marelso.shineyard.R
+import io.marelso.shineyard.data.PlantAction
 import io.marelso.shineyard.ui.components.PlantActions
 import io.marelso.shineyard.ui.components.PlantInfo
 import io.marelso.shineyard.ui.components.PlantPicture
@@ -31,19 +32,24 @@ import io.marelso.shineyard.ui.components.text.TextLabel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun DetailScreenHoisting(viewModel: DetailViewModel) {
+fun DetailScreenHoisting(
+    viewModel: DetailViewModel,
+    redirectToSchedule: () -> Unit
+) {
     val moistureLevel by viewModel.currentMoisturePercent.collectAsStateWithLifecycle()
     val lastPumpActivateDateTime by viewModel.lastPumpActivateDateTime.collectAsStateWithLifecycle()
     val maximumWaterVolume by viewModel.maximumWaterVolume.collectAsStateWithLifecycle()
     val currentWaterVolume by viewModel.currentWaterVolume.collectAsStateWithLifecycle()
     val pumpActiveStatus by viewModel.pumpActiveStatus.collectAsStateWithLifecycle()
+
     DetailScreen(
         lastPumpActivateDateTime = lastPumpActivateDateTime,
         currentMoisturePercent = moistureLevel,
         maximumWaterVolume = maximumWaterVolume,
         currentWaterVolume = currentWaterVolume,
         pumpActiveStatus = pumpActiveStatus,
-        onPumpStatusChange = viewModel::onPumpStatusChange
+        onPumpStatusChange = viewModel::onPumpStatusChange,
+        onScheduleClick = redirectToSchedule
     )
 }
 
@@ -56,8 +62,9 @@ private fun DetailScreen(
     maximumWaterVolume: Double,
     currentWaterVolume: Double,
     pumpActiveStatus: Boolean,
+    lastPumpActivateDateTime: String,
+    onScheduleClick: () -> Unit,
     onPumpStatusChange: () -> Unit,
-    lastPumpActivateDateTime: String
 ) {
     Scaffold(
         topBar = {
@@ -89,7 +96,13 @@ private fun DetailScreen(
                     )
                 }
                 item {
-                    PlantActions()
+                    PlantActions(
+                        actions = listOf(
+                            PlantAction.SCHEDULE.apply {
+                                onClick = onScheduleClick
+                            }
+                        )
+                    )
                 }
             }
         },
