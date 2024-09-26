@@ -23,6 +23,9 @@ class DetailViewModel(
     private val _pumpActiveStatus = MutableStateFlow(false)
     val pumpActiveStatus: StateFlow<Boolean> = _pumpActiveStatus
 
+    private val _waterAmount = MutableStateFlow(0)
+    val waterAmount: StateFlow<Int> = _waterAmount
+
     init {
         repository.currentMoisturePercent {
             _currentMoisturePercent.tryEmit(it)
@@ -47,5 +50,9 @@ class DetailViewModel(
 
     fun onPumpStatusChange() {
         repository.changePumpStatus(!pumpActiveStatus.value)
+    }
+
+    fun onWaterAmountChange(value: Int) {
+        _waterAmount.tryEmit(value)
     }
 }
