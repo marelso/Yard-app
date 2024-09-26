@@ -12,9 +12,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SheetState
+import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,10 +33,13 @@ import io.marelso.shineyard.data.PlantAction
 import io.marelso.shineyard.ui.components.PlantActions
 import io.marelso.shineyard.ui.components.PlantInfo
 import io.marelso.shineyard.ui.components.PlantPicture
+import io.marelso.shineyard.ui.components.ScheduleBottomSheet
 import io.marelso.shineyard.ui.components.WaterReservoirInfo
 import io.marelso.shineyard.ui.components.text.TextHeadline
 import io.marelso.shineyard.ui.components.text.TextLabel
+import java.util.Date
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DetailScreenHoisting(
@@ -41,15 +51,41 @@ fun DetailScreenHoisting(
     val maximumWaterVolume by viewModel.maximumWaterVolume.collectAsStateWithLifecycle()
     val currentWaterVolume by viewModel.currentWaterVolume.collectAsStateWithLifecycle()
     val pumpActiveStatus by viewModel.pumpActiveStatus.collectAsStateWithLifecycle()
+    val waterAmount by viewModel.waterAmount.collectAsStateWithLifecycle()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+    val scheduleTimeState = rememberTimePickerState(
+        initialHour = Date().hours,
+        initialMinute = Date().minutes,
+        is24Hour = false
+    )
+    var shouldShowScheduleSheet by remember {
+        mutableStateOf(false)
+    }
 
     DetailScreen(
+        shouldShowScheduleSheet = shouldShowScheduleSheet,
         lastPumpActivateDateTime = lastPumpActivateDateTime,
         currentMoisturePercent = moistureLevel,
         maximumWaterVolume = maximumWaterVolume,
         currentWaterVolume = currentWaterVolume,
         pumpActiveStatus = pumpActiveStatus,
+        waterAmount = waterAmount.toString(),
+        sheetState = sheetState,
+        scheduleTimeState = scheduleTimeState,
+        onAddAmountClick = {
+            viewModel.onWaterAmountChange(waterAmount + 10)
+        },
+        onSubtractAmountClick = {
+            viewModel.onWaterAmountChange(waterAmount - 10)
+        },
+        onWaterAmountChange = viewModel::onWaterAmountChange,
         onPumpStatusChange = viewModel::onPumpStatusChange,
-        onScheduleClick = redirectToSchedule
+        onScheduleSheetVisibilityChange = {
+            shouldShowScheduleSheet = it
+        },
+        onSubmitClick = {
+
+        }
     )
 }
 
@@ -58,13 +94,21 @@ fun DetailScreenHoisting(
 @OptIn(ExperimentalMaterial3Api::class)
 private fun DetailScreen(
     modifier: Modifier = Modifier,
+    shouldShowScheduleSheet: Boolean,
     currentMoisturePercent: Int,
     maximumWaterVolume: Double,
     currentWaterVolume: Double,
     pumpActiveStatus: Boolean,
     lastPumpActivateDateTime: String,
-    onScheduleClick: () -> Unit,
+    waterAmount: String,
+    sheetState: SheetState,
+    scheduleTimeState: TimePickerState,
+    onAddAmountClick: () -> Unit,
+    onSubtractAmountClick: () -> Unit,
+    onWaterAmountChange: (Int) -> Unit,
+    onScheduleSheetVisibilityChange: (Boolean) -> Unit,
     onPumpStatusChange: () -> Unit,
+    onSubmitClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -99,10 +143,27 @@ private fun DetailScreen(
                     PlantActions(
                         actions = listOf(
                             PlantAction.SCHEDULE.apply {
-                                onClick = onScheduleClick
+                                onClick = {
+                                    onScheduleSheetVisibilityChange(!shouldShowScheduleSheet)
+                                }
                             }
                         )
                     )
+                }
+
+                if (shouldShowScheduleSheet) {
+                    item {
+                        ScheduleBottomSheet(
+                            value = waterAmount,
+                            scheduleTimeState = scheduleTimeState,
+                            sheetState = sheetState,
+                            onAddAmountClick = onAddAmountClick,
+                            onSubtractAmountClick = onSubtractAmountClick,
+                            onValueChange = onWaterAmountChange,
+                            onSubmitClick = onSubmitClick,
+                            onDismissRequest = { onScheduleSheetVisibilityChange(false) }
+                        )
+                    }
                 }
             }
         },
