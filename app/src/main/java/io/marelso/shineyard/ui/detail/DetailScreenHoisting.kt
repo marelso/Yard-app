@@ -53,11 +53,6 @@ fun DetailScreenHoisting(
     val pumpActiveStatus by viewModel.pumpActiveStatus.collectAsStateWithLifecycle()
     val waterAmount by viewModel.waterAmount.collectAsStateWithLifecycle()
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
-    val scheduleTimeState = rememberTimePickerState(
-        initialHour = Date().hours,
-        initialMinute = Date().minutes,
-        is24Hour = false
-    )
     var shouldShowScheduleSheet by remember {
         mutableStateOf(false)
     }
@@ -71,7 +66,7 @@ fun DetailScreenHoisting(
         pumpActiveStatus = pumpActiveStatus,
         waterAmount = waterAmount.toString(),
         sheetState = sheetState,
-        scheduleTimeState = scheduleTimeState,
+        scheduleTimeState = viewModel.scheduleTimeState,
         onAddAmountClick = {
             viewModel.onWaterAmountChange(waterAmount + 10)
         },
@@ -83,9 +78,7 @@ fun DetailScreenHoisting(
         onScheduleSheetVisibilityChange = {
             shouldShowScheduleSheet = it
         },
-        onSubmitClick = {
-
-        }
+        onSubmitClick = viewModel::onSubmitClick
     )
 }
 
