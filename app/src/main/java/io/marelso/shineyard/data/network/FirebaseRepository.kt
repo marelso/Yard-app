@@ -4,6 +4,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import io.marelso.shineyard.data.WaterSchedule
 
 class FirebaseRepository(private val database: DatabaseReference) {
     fun lastPumpActivateDateTime(onDataChange: (String) -> Unit) {
@@ -58,5 +59,9 @@ class FirebaseRepository(private val database: DatabaseReference) {
 
     fun changePumpStatus(update: Boolean) {
         database.updateChildren(mapOf<String, Any>("pumpActiveStatus" to update))
+    }
+
+    fun registerSchedule(schedule: WaterSchedule) {
+        database.push().setValue(schedule)
     }
 }
