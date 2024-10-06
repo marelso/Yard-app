@@ -49,7 +49,7 @@ private fun Action(
 ) {
     Column(
         modifier = modifier.clickable {
-            action.onClick?.invoke()
+            action.onCreate?.invoke()
         },
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

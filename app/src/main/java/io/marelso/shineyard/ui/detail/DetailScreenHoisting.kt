@@ -2,6 +2,7 @@ package io.marelso.shineyard.ui.detail
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.TimePickerState
@@ -29,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.marelso.shineyard.R
 import io.marelso.shineyard.data.PlantAction
+import io.marelso.shineyard.ui.components.PlantActionComponent
 import io.marelso.shineyard.ui.components.PlantActions
 import io.marelso.shineyard.ui.components.PlantInfo
 import io.marelso.shineyard.ui.components.PlantPicture
@@ -133,6 +136,14 @@ private fun DetailScreen(
                 }
 
                 item {
+                    PlantActionComponent(action = PlantAction.SCHEDULE)
+                }
+
+                item {
+                    PlantActionComponent(action = PlantAction.NOTIFICATION)
+                }
+
+                item {
                     PlantInfo(
                         currentMoisturePercent = currentMoisturePercent,
                         lastPumpActivateDateTime = lastPumpActivateDateTime
@@ -142,7 +153,7 @@ private fun DetailScreen(
                     PlantActions(
                         actions = listOf(
                             PlantAction.SCHEDULE.apply {
-                                onClick = {
+                                onCreate = {
                                     onScheduleSheetVisibilityChange(!shouldShowScheduleSheet)
                                 }
                             }
@@ -169,6 +180,7 @@ private fun DetailScreen(
         bottomBar = {
             Row(
                 modifier = modifier
+                    .background(color = MaterialTheme.colorScheme.background)
                     .fillMaxWidth()
                     .border(1.dp, color = Color.LightGray)
                     .padding(16.dp)
