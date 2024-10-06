@@ -7,6 +7,14 @@
     <string name="title_action_trigger_pump">Start watering</string>
     <string name="title_action_trigger_pump_off">Stop watering</string>
     <string name="title_action_schedule_watering">Schedule watering</string>
+    <string name="title_action_schedule_notification">Schedule notification</string>
+
+    <string name="title_action_schedule">Schedule</string>
+    <string name="title_action_schedule_empty">There are no schedules. Use the button below to create one.</string>
+
+
+    <string name="title_action_notification">Notifications</string>
+    <string name="title_action_notification_empty">There are no notifications planned. Use the button below to create one.</string>
 
     <!--  Plant props  -->
     <string name="title_moisture">moisture</string>

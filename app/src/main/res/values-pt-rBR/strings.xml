@@ -8,6 +8,13 @@
     <string name="title_action_trigger_pump">Regar</string>
     <string name="title_action_trigger_pump_off">Parar de regar</string>
     <string name="title_action_schedule_watering">Agendar rega</string>
+    <string name="title_action_schedule_notification">Agendar notificação</string>
+
+    <string name="title_action_schedule">Agendamento</string>
+    <string name="title_action_schedule_empty">Não há nenhum agendamento criado. Utilize o botão abaixo para criar um.</string>
+
+    <string name="title_action_notification">Notificações</string>
+    <string name="title_action_notification_empty">Não há nenhuma notificação planejada. Utilize o botão abaixo para agendar.</string>
 
     <!--  Plant props  -->
     <string name="title_moisture">umidade</string>
