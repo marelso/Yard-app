@@ -16,7 +16,6 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,11 +32,11 @@ import io.marelso.shineyard.data.PlantAction
 import io.marelso.shineyard.ui.components.PlantActions
 import io.marelso.shineyard.ui.components.PlantInfo
 import io.marelso.shineyard.ui.components.PlantPicture
+import io.marelso.shineyard.ui.components.PlantWaterLevelHoisting
 import io.marelso.shineyard.ui.components.ScheduleBottomSheet
 import io.marelso.shineyard.ui.components.WaterReservoirInfo
 import io.marelso.shineyard.ui.components.text.TextHeadline
 import io.marelso.shineyard.ui.components.text.TextLabel
-import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
@@ -126,6 +125,13 @@ private fun DetailScreen(
                 item {
                     TextHeadline(text = "Schweppes")
                 }
+
+                item {
+                    PlantWaterLevelHoisting(
+                        currentMoisturePercent
+                    )
+                }
+
                 item {
                     PlantInfo(
                         currentMoisturePercent = currentMoisturePercent,

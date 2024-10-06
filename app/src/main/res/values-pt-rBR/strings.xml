@@ -9,4 +9,7 @@
     <string name="title_action_trigger_pump_off">Parar de regar</string>
     <string name="title_action_schedule_watering">Agendar rega</string>
 
+    <!--  Plant props  -->
+    <string name="title_moisture">umidade</string>
+
 </resources>

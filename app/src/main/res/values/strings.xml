@@ -7,4 +7,7 @@
     <string name="title_action_trigger_pump">Start watering</string>
     <string name="title_action_trigger_pump_off">Stop watering</string>
     <string name="title_action_schedule_watering">Schedule watering</string>
+
+    <!--  Plant props  -->
+    <string name="title_moisture">moisture</string>
 </resources>
