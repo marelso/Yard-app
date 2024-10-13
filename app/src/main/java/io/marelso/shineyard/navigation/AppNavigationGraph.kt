@@ -14,6 +14,10 @@ fun AppNavigationGraph(
     navHostController: NavHostController
 ) {
     NavHost(navController = navHostController, startDestination = Routes.Detail.route) {
+        composable(route = Routes.Login.route) {
+            LoginScreenHoisting()
+        }
+
         composable(route = Routes.Detail.route) {
             val viewModel = koinViewModel<DetailViewModel>()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
