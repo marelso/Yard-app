@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShineYard"
         android:name=".ShineYardApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
