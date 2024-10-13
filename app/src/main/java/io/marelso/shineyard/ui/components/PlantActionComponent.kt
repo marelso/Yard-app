@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -24,7 +25,10 @@ import io.marelso.shineyard.ui.theme.Brand
 
 @Composable
 fun PlantActionComponent(modifier: Modifier = Modifier, action: PlantAction) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    Column(
+        modifier = modifier.padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
         Text(
             modifier = modifier.fillMaxWidth(),
             text = stringResource(id = action.title),
@@ -43,6 +47,7 @@ fun PlantActionComponent(modifier: Modifier = Modifier, action: PlantAction) {
         )
 
         Text(
+            modifier = modifier.fillMaxWidth(),
             text = stringResource(id = action.empty),
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,

@@ -16,6 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,6 +40,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import io.marelso.shineyard.R
+import io.marelso.shineyard.ui.theme.Brand
 
 private val Color.Companion.Water: Color
     get() = Color(0x007DC2D6).copy(alpha = .65F)
@@ -67,6 +71,7 @@ private fun PlantWaterLevel(
 ) {
     Box(
         modifier
+            .padding(16.dp)
             .clip(RoundedCornerShape(4.dp))
             .fillMaxWidth()
             .height(84.dp)
@@ -115,6 +120,23 @@ private fun PlantWaterLevel(
 
             Text(
                 text = stringResource(id = R.string.title_moisture),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                color = Color.White,
+            )
+        }
+
+        Button(
+            modifier = modifier.padding(end = 16.dp).align(Alignment.CenterEnd),
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults.buttonColors(containerColor = Brand)
+        ) {
+            Text(
+                text = "Update",
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 textAlign = TextAlign.Start,
