@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -45,11 +43,10 @@ fun LoginScreenHoisting(
         email = email,
         password = password,
         showPassword = showPassword,
-        onChangePasswordVisibility = {
-            showPassword = !showPassword
-        },
+        onChangePasswordVisibility = { showPassword = !showPassword },
         onUserEmailChange = viewModel::onUserEmailChange,
-        onUserPasswordChange = viewModel::onUserPasswordChange
+        onUserPasswordChange = viewModel::onUserPasswordChange,
+        onSubmit = viewModel::onSubmit
     )
 }
 
@@ -62,6 +59,7 @@ fun LoginScreen(
     onChangePasswordVisibility: () -> Unit,
     onUserEmailChange: (TextFieldValue) -> Unit,
     onUserPasswordChange: (TextFieldValue) -> Unit,
+    onSubmit: () -> Unit,
 ) {
     Scaffold {
         Column(
@@ -117,9 +115,12 @@ fun LoginScreen(
                 onValueChange = onUserPasswordChange
             )
 
-            Button(modifier = modifier
-                .width(TextFieldDefaults.MinWidth)
-                .padding(bottom = 16.dp), onClick = { /*TODO*/ }) {
+            Button(
+                modifier = modifier
+                    .width(TextFieldDefaults.MinWidth)
+                    .padding(bottom = 16.dp),
+                enabled = getSubmitStatus(password.text, email.text),
+                onClick = { /*TODO*/ }) {
                 Text(text = "Log in")
             }
 
@@ -130,4 +131,7 @@ fun LoginScreen(
     }
 }
 
-private fun getPasswordVisual(showPassword: Boolean) = if (showPassword) VisualTransformation.None else PasswordVisualTransformation()
+private fun getSubmitStatus(password: String, email: String) = password.isNotBlank() && email.isNotBlank()
+
+private fun getPasswordVisual(showPassword: Boolean) =
+    if (showPassword) VisualTransformation.None else PasswordVisualTransformation()
