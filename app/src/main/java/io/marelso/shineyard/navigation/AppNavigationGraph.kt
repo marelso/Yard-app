@@ -7,15 +7,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import io.marelso.shineyard.ui.detail.DetailScreenHoisting
 import io.marelso.shineyard.ui.detail.DetailViewModel
+import io.marelso.shineyard.ui.login.LoginScreenHoisting
+import io.marelso.shineyard.ui.login.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun AppNavigationGraph(
     navHostController: NavHostController
 ) {
-    NavHost(navController = navHostController, startDestination = Routes.Detail.route) {
+    NavHost(navController = navHostController, startDestination = Routes.Login.route) {
         composable(route = Routes.Login.route) {
-            LoginScreenHoisting()
+            val viewModel = koinViewModel<LoginViewModel>()
+            LoginScreenHoisting(
+                viewModel = viewModel,
+                onLoginSuccess = {
+                    navHostController.navigate(Routes.navigate(to = Routes.Detail))
+                }
+            )
         }
 
         composable(route = Routes.Detail.route) {
