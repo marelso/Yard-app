@@ -120,7 +120,7 @@ fun LoginScreen(
                     .width(TextFieldDefaults.MinWidth)
                     .padding(bottom = 16.dp),
                 enabled = getSubmitStatus(password.text, email.text),
-                onClick = { /*TODO*/ }) {
+                onClick = onSubmit) {
                 Text(text = "Log in")
             }
 

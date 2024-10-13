@@ -2,9 +2,11 @@ package io.marelso.shineyard.ui.login
 
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.marelso.shineyard.ui.login.data.network.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class LoginViewModel(private val authRepository: AuthRepository): ViewModel() {
 
@@ -17,8 +19,20 @@ class LoginViewModel(private val authRepository: AuthRepository): ViewModel() {
     fun onUserEmailChange(value: TextFieldValue) = _emailValue.tryEmit(value)
 
     fun onUserPasswordChange(value: TextFieldValue) = _passwordValue.tryEmit(value)
-    fun onSubmit() {
-        TODO("Not yet implemented")
+    fun onSubmit() = viewModelScope.launch {
+        val email = _emailValue.value.text
+        val password = _passwordValue.value.text
+        if(email.isNotBlank() && password.isNotBlank()) {
+            val result = authRepository.auth(email = email, password = password)
+
+            if(result.isSuccessful) {
+                val a = result.body()
+            } else {
+                val a = result.message()
+            }
+        }
+
+
     }
 
 }
