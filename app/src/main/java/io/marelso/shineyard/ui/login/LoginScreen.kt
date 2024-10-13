@@ -32,9 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.marelso.shineyard.R
 
 @Composable
-fun LoginScreenHoisting(
-    viewModel: LoginViewModel, onLoginSuccess: () -> Unit
-) {
+fun LoginScreenHoisting(viewModel: LoginViewModel) {
     val email by viewModel.emailValue.collectAsStateWithLifecycle()
     val password by viewModel.passwordValue.collectAsStateWithLifecycle()
     var showPassword by remember { mutableStateOf(false) }

@@ -18,5 +18,7 @@ val loginModule = module {
     factoryOf(::AuthRemoteDataSource)
     factoryOf(::AuthRepository)
 
-    viewModelOf(::LoginViewModel)
+    factory { (onLoginSuccess: () -> Unit) ->
+        LoginViewModel(authRepository = get(), onLoginSuccess = onLoginSuccess)
+    }
 }

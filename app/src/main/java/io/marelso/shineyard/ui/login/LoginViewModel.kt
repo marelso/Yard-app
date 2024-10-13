@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel(private val authRepository: AuthRepository): ViewModel() {
+class LoginViewModel(
+    private val authRepository: AuthRepository,
+    val onLoginSuccess: () -> Unit
+): ViewModel() {
 
     private val _emailValue = MutableStateFlow(TextFieldValue(""))
     val emailValue: StateFlow<TextFieldValue> = _emailValue
@@ -26,13 +29,9 @@ class LoginViewModel(private val authRepository: AuthRepository): ViewModel() {
             val result = authRepository.auth(email = email, password = password)
 
             if(result.isSuccessful) {
-                val a = result.body()
-            } else {
-                val a = result.message()
+                onLoginSuccess()
             }
         }
-
-
     }
 
 }
