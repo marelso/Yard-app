@@ -5,6 +5,7 @@ import io.marelso.shineyard.ui.login.LoginViewModel
 import io.marelso.shineyard.ui.login.data.network.AuthRemoteDataSource
 import io.marelso.shineyard.ui.login.data.network.AuthRepository
 import io.marelso.shineyard.ui.login.data.network.AuthService
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.qualifier.named
@@ -18,7 +19,7 @@ val loginModule = module {
     factoryOf(::AuthRemoteDataSource)
     factoryOf(::AuthRepository)
 
-    factory { (onLoginSuccess: () -> Unit) ->
+    viewModel { (onLoginSuccess: () -> Unit) ->
         LoginViewModel(authRepository = get(), onLoginSuccess = onLoginSuccess)
     }
 }

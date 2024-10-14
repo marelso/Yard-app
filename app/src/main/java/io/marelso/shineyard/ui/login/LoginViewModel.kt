@@ -3,6 +3,7 @@ package io.marelso.shineyard.ui.login
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.marelso.shineyard.data.Session
 import io.marelso.shineyard.ui.login.data.network.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,6 +30,9 @@ class LoginViewModel(
             val result = authRepository.auth(email = email, password = password)
 
             if(result.isSuccessful) {
+                result.body()?.let {
+                    Session.account = it
+                }
                 onLoginSuccess()
             }
         }
