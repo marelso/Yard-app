@@ -11,3 +11,4 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val Brand = Color(0xFF589A74)
+val Water = Color(0xFF2C96BD)

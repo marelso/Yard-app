@@ -1,9 +1,11 @@
 package io.marelso.shineyard.ui.detail
 
+import android.os.Bundle
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.lifecycle.ViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.marelso.shineyard.data.WaterSchedule
 import io.marelso.shineyard.data.network.FirebaseRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,6 +14,7 @@ import java.util.Calendar
 import java.util.Date
 
 class DetailViewModel(
+    private val analytics: FirebaseAnalytics,
     private val repository: FirebaseRepository
 ): ViewModel() {
     private val _currentMoisturePercent = MutableStateFlow(0)
@@ -62,6 +65,10 @@ class DetailViewModel(
     }
 
     fun onPumpStatusChange() {
+        analytics.logEvent("pump_status_change", Bundle().apply {
+            putBoolean("status", !pumpActiveStatus.value)
+        })
+
         repository.changePumpStatus(!pumpActiveStatus.value)
     }
 
@@ -71,6 +78,10 @@ class DetailViewModel(
 
     @OptIn(ExperimentalMaterial3Api::class)
     fun onSubmitClick() {
+        analytics.logEvent("watering_schedule", Bundle().apply {
+            putInt("amount", _waterAmount.value)
+            putString("time", "${scheduleTimeState.hour}:${scheduleTimeState.minute}")
+        })
         repository.registerSchedule(
             WaterSchedule(
                 date = "${scheduleTimeState.hour}:${scheduleTimeState.minute}",
