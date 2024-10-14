@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.analytics.ktx)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
     implementation(libs.coil.compose)
