@@ -1,4 +1,4 @@
-package io.marelso.shineyard.data.network
+package io.marelso.shineyard.ui.detail
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -8,7 +8,7 @@ import io.marelso.shineyard.data.WaterSchedule
 
 class FirebaseRepository(private val database: DatabaseReference) {
     fun lastPumpActivateDateTime(onDataChange: (String) -> Unit) {
-        database.child("lastPumpActivateDateTime").addValueEventListener(object : ValueEventListener {
+        database.child("sensors/lastPumpActivateDateTime").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 onDataChange(snapshot.getValue(String::class.java).orEmpty())
             }
@@ -18,7 +18,7 @@ class FirebaseRepository(private val database: DatabaseReference) {
     }
 
     fun currentMoisturePercent(onDataChange: (Int) -> Unit) {
-        database.child("currentMoisturePercent").addValueEventListener(object : ValueEventListener {
+        database.child("sensors/currentMoisturePercent").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 onDataChange(snapshot.getValue(Int::class.java) ?: 0)
             }
@@ -28,7 +28,7 @@ class FirebaseRepository(private val database: DatabaseReference) {
     }
 
     fun currentWaterVolume(onDataChange: (Double) -> Unit) {
-        database.child("currentWaterVolume").addValueEventListener(object : ValueEventListener {
+        database.child("sensors/currentWaterVolume").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 onDataChange(snapshot.getValue(Double::class.java) ?: 0.00)
             }
@@ -38,7 +38,7 @@ class FirebaseRepository(private val database: DatabaseReference) {
     }
 
     fun maximumWaterVolume(onDataChange: (Double) -> Unit) {
-        database.child("maximumWaterVolume").addValueEventListener(object : ValueEventListener {
+        database.child("sensors/maximumWaterVolume").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 onDataChange(snapshot.getValue(Double::class.java) ?: 0.00)
             }
@@ -48,7 +48,7 @@ class FirebaseRepository(private val database: DatabaseReference) {
     }
 
     fun pumpActiveStatus(onDataChange: (Boolean) -> Unit) {
-        database.child("pumpActiveStatus").addValueEventListener(object : ValueEventListener {
+        database.child("sensors/pumpActiveStatus").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 onDataChange(snapshot.getValue(Boolean::class.java) ?: false)
             }
