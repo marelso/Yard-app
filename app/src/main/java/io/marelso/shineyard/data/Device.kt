@@ -1,6 +1,7 @@
 package io.marelso.shineyard.data
 
 data class Device(
-    val name: String,
-    val sensors: Sensor
+    val id: String? = null,
+    val name: String = "",
+    val sensors: Sensor = Sensor()
 )
