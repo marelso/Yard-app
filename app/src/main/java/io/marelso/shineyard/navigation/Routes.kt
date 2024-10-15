@@ -10,15 +10,11 @@ sealed class Routes(val title: String, val route: String) {
 
     companion object {
         fun navigate(to: Routes, vararg parameters: Pair<String, String>?): String {
-            var route = to.route
-
-            parameters.forEach {
-                it?.let {
-                    route = route.replace("{${it.first}}", it.second)
-                }
+            return parameters.fold(to.route) { route, parameter ->
+                parameter?.let {
+                    route.replace("{${it.first}}", it.second)
+                } ?: route
             }
-
-            return route
         }
     }
 }
