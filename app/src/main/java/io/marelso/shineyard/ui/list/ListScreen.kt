@@ -13,15 +13,18 @@ import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.marelso.shineyard.data.Device
 import io.marelso.shineyard.ui.list.components.PlantCard
-import io.marelso.shineyard.ui.theme.Brand
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun ListScreenHoisting(viewModel: ListViewModel) {
+    val devices by viewModel.devices.collectAsStateWithLifecycle()
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(
             initialValue = SheetValue.PartiallyExpanded,
@@ -29,7 +32,7 @@ fun ListScreenHoisting(viewModel: ListViewModel) {
             skipHiddenState = true
         )
     )
-    ListScreen(sheetState = scaffoldState, value=viewModel.user.orEmpty())
+    ListScreen(sheetState = scaffoldState, devices = devices)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,8 +40,9 @@ fun ListScreenHoisting(viewModel: ListViewModel) {
 fun ListScreen(
     modifier: Modifier = Modifier,
     sheetState: BottomSheetScaffoldState,
-    value: String) {
-    val a = LocalConfiguration.current.screenHeightDp/2
+    devices: List<Device>,
+) {
+    val a = LocalConfiguration.current.screenHeightDp / 2
     BottomSheetScaffold(
         scaffoldState = sheetState,
         sheetPeekHeight = a.dp,
@@ -53,131 +57,11 @@ fun ListScreen(
                 item {
                     Text(text = "Suas plantas", style = MaterialTheme.typography.titleMedium)
                 }
-                item {
-                    Text(text = value, style = MaterialTheme.typography.titleMedium)
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
-                }
-                item {
-                    PlantCard()
+
+                devices.forEach {
+                    item {
+                        PlantCard(device = it)
+                    }
                 }
             }
         },

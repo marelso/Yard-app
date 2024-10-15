@@ -26,11 +26,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import io.marelso.shineyard.R
+import io.marelso.shineyard.data.Device
 import io.marelso.shineyard.ui.theme.Brand
 import io.marelso.shineyard.ui.theme.Water
 
 @Composable
-fun PlantCard(modifier: Modifier = Modifier) {
+fun PlantCard(modifier: Modifier = Modifier, device: Device) {
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -59,9 +60,9 @@ fun PlantCard(modifier: Modifier = Modifier) {
         }
 
         Column(modifier.weight(1f)) {
-            Text(text = "Samambaia", style = MaterialTheme.typography.titleMedium)
+            Text(text = device.name, style = MaterialTheme.typography.titleMedium)
             Text(
-                text = "48% de umidade",
+                text = "${device.sensors.currentMoisturePercent}% de umidade",
                 style = MaterialTheme.typography.labelLarge,
                 color = Water
             )
