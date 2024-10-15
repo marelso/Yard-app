@@ -20,7 +20,7 @@ import io.marelso.shineyard.ui.theme.Brand
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun PlantTopBar(modifier: Modifier = Modifier) {
+fun PlantTopBar(modifier: Modifier = Modifier, navigateBack: () -> Unit) {
     Column {
         TopAppBar(
             modifier = modifier.background(color = Brand).padding(horizontal = 8.dp),
@@ -39,7 +39,7 @@ fun PlantTopBar(modifier: Modifier = Modifier) {
             },
             navigationIcon = {
                 IconButton(
-                    onClick = { },
+                    onClick = navigateBack,
                     colors = IconButtonDefaults.iconButtonColors(containerColor = MaterialTheme.colorScheme.background)
                 ) {
                     Icon(

@@ -62,6 +62,9 @@ fun AppNavigationGraph(
                         navHostController.navigate(
                             route = Routes.navigate(to = Routes.Schedule)
                         )
+                    },
+                    navigateBack = {
+                        navHostController.popBackStack()
                     }
                 )
             }

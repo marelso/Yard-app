@@ -17,21 +17,14 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TimePickerState
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,12 +48,9 @@ import io.marelso.shineyard.data.PlantAction
 import io.marelso.shineyard.ui.components.PlantActionComponent
 import io.marelso.shineyard.ui.components.PlantActions
 import io.marelso.shineyard.ui.components.PlantInfo
-import io.marelso.shineyard.ui.components.PlantPicture
 import io.marelso.shineyard.ui.components.PlantTopBar
 import io.marelso.shineyard.ui.components.PlantWaterLevelHoisting
 import io.marelso.shineyard.ui.components.ScheduleBottomSheet
-import io.marelso.shineyard.ui.components.WaterReservoirInfo
-import io.marelso.shineyard.ui.components.text.TextHeadline
 import io.marelso.shineyard.ui.components.text.TextLabel
 import io.marelso.shineyard.ui.theme.Brand
 
@@ -69,6 +59,7 @@ import io.marelso.shineyard.ui.theme.Brand
 @Composable
 fun DetailScreenHoisting(
     viewModel: DetailViewModel,
+    navigateBack: () -> Unit,
     redirectToSchedule: () -> Unit
 ) {
     val moistureLevel by viewModel.currentMoisturePercent.collectAsStateWithLifecycle()
@@ -103,7 +94,8 @@ fun DetailScreenHoisting(
         onScheduleSheetVisibilityChange = {
             shouldShowScheduleSheet = it
         },
-        onSubmitClick = viewModel::onSubmitClick
+        onSubmitClick = viewModel::onSubmitClick,
+        navigateBack = navigateBack
     )
 }
 
@@ -126,11 +118,12 @@ private fun DetailScreen(
     onWaterAmountChange: (Int) -> Unit,
     onScheduleSheetVisibilityChange: (Boolean) -> Unit,
     onPumpStatusChange: () -> Unit,
+    navigateBack: () -> Unit,
     onSubmitClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
-            PlantTopBar()
+            PlantTopBar(navigateBack = navigateBack)
         },
         content = {
             LazyColumn(
