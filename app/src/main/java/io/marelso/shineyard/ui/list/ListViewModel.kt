@@ -14,11 +14,13 @@ class ListViewModel(
     val devices: StateFlow<List<Device>> = _devices
 
     init {
-        currentAccount.accountDevices.forEach {
-            it.id?.let {
+        currentAccount.accountDevices.forEach { accountDevice ->
+            accountDevice.id?.let {
                 repository.getDevice(it) {
                     it?.let { device ->
-                        putDeviceIntoList(device)
+                        putDeviceIntoList(device.apply {
+                            id = accountDevice.id
+                        })
                     }
                 }
             }

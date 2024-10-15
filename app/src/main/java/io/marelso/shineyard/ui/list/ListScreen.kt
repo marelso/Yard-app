@@ -23,7 +23,7 @@ import io.marelso.shineyard.ui.list.components.PlantCard
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun ListScreenHoisting(viewModel: ListViewModel) {
+fun ListScreenHoisting(viewModel: ListViewModel, redirectToDetail: (String) -> Unit) {
     val devices by viewModel.devices.collectAsStateWithLifecycle()
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(
@@ -32,7 +32,11 @@ fun ListScreenHoisting(viewModel: ListViewModel) {
             skipHiddenState = true
         )
     )
-    ListScreen(sheetState = scaffoldState, devices = devices)
+    ListScreen(
+        sheetState = scaffoldState,
+        devices = devices,
+        onDeviceClick = redirectToDetail
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,6 +45,7 @@ fun ListScreen(
     modifier: Modifier = Modifier,
     sheetState: BottomSheetScaffoldState,
     devices: List<Device>,
+    onDeviceClick: (String) -> Unit
 ) {
     val a = LocalConfiguration.current.screenHeightDp / 2
     BottomSheetScaffold(
@@ -60,7 +65,7 @@ fun ListScreen(
 
                 devices.forEach {
                     item {
-                        PlantCard(device = it)
+                        PlantCard(device = it, onCardClick = onDeviceClick)
                     }
                 }
             }

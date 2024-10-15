@@ -2,6 +2,7 @@ package io.marelso.shineyard.ui.list.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,9 +32,13 @@ import io.marelso.shineyard.ui.theme.Brand
 import io.marelso.shineyard.ui.theme.Water
 
 @Composable
-fun PlantCard(modifier: Modifier = Modifier, device: Device) {
+fun PlantCard(
+    modifier: Modifier = Modifier,
+    device: Device,
+    onCardClick: (String) -> Unit
+) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth().clickable { onCardClick(device.id.orEmpty()) },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -68,7 +73,7 @@ fun PlantCard(modifier: Modifier = Modifier, device: Device) {
             )
         }
 
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = { onCardClick(device.id.orEmpty()) }) {
             Icon(
                 modifier = modifier
                     .size(50.dp)
