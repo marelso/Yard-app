@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import io.marelso.shineyard.data.WaterSchedule
 
-class FirebaseRepository(private val database: DatabaseReference) {
+class DeviceDetailRepository(private val database: DatabaseReference) {
     fun lastPumpActivateDateTime(onDataChange: (String) -> Unit) {
         database.child("sensors/lastPumpActivateDateTime").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

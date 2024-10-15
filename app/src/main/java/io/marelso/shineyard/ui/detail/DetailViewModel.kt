@@ -13,7 +13,7 @@ import java.util.Calendar
 class DetailViewModel(
     private val deviceId: String,
     private val analytics: FirebaseAnalytics,
-    private val repository: FirebaseRepository
+    private val repository: DeviceDetailRepository
 ): ViewModel() {
     private val _currentMoisturePercent = MutableStateFlow(0)
     val currentMoisturePercent: StateFlow<Int> = _currentMoisturePercent

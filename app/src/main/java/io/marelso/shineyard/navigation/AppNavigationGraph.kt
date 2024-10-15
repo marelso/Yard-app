@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import io.marelso.shineyard.ui.detail.DetailScreenHoisting
 import io.marelso.shineyard.ui.detail.DetailViewModel
-import io.marelso.shineyard.ui.detail.FirebaseRepository
+import io.marelso.shineyard.ui.detail.DeviceDetailRepository
 import io.marelso.shineyard.ui.list.ListScreenHoisting
 import io.marelso.shineyard.ui.list.ListViewModel
 import io.marelso.shineyard.ui.login.LoginScreenHoisting
@@ -47,7 +47,7 @@ fun AppNavigationGraph(
             route = Routes.Detail.route,
             arguments = listOf(navArgument(KEY_DEVICE_ID) { type = NavType.StringType })
         ) { backStackEntry ->
-            val repository: FirebaseRepository = koinInject(
+            val repository: DeviceDetailRepository = koinInject(
                 parameters = { parametersOf(backStackEntry.arguments?.getString(KEY_DEVICE_ID).orEmpty()) }
             )
             val viewModel = koinViewModel<DetailViewModel>(
